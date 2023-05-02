@@ -2,7 +2,7 @@
 
 KeePass Master Password Dumper is a simple proof-of-concept tool used to dump the master password from KeePass's memory. Apart from the first password character, it is mostly able to recover the password in plaintext. No code execution on the target system is required, just a memory dump. It doesn't matter where the memory comes from - can be the **process dump, swap file (`pagefile.sys`), hibernation file (`hiberfil.sys`) or RAM dump** of the entire system. **It doesn't matter whether or not the workspace is locked**. It is also possible to dump the password from RAM after KeePass is no longer running, although the chance of that working goes down with the time it's been since then.
 
-Tested with `KeePass 2.51.1` on Windows. Should work for Linux and macOS versions as well. Finding was confirmed by Dominik Reichl, KeePass's author, [here](https://sourceforge.net/p/keepass/discussion/329220/thread/f3438e6283/). I appreciate Dominik's fast response. Hopefully it will be fixed soon!
+Tested with `KeePass 2.53.1` on Windows. Should work for Linux and macOS versions as well. Finding was confirmed by Dominik Reichl, KeePass's author, [here](https://sourceforge.net/p/keepass/discussion/329220/thread/f3438e6283/). I appreciate Dominik's fast response. Hopefully it will be fixed soon!
 
 ## Setup
 1. [Install .NET](https://dotnet.microsoft.com/en-us/download) (most major operating systems supported).
