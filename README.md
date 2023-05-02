@@ -22,11 +22,11 @@ If you use full disk encryption with a strong password and your system is clean,
 
 ## How It Works
 
-KeePass 2.X uses a custom-developed text box for password entry, `SecureTextBoxEx`. This text box is used for the master password entry, but also in other places in KeePass (so the attack can also be used to recover contents of them).
+KeePass 2.X uses a custom-developed text box for password entry, `SecureTextBoxEx`. This text box is not only used for the master password entry, but in other places in KeePass as well, like password edit boxes (so the attack can also be used to recover their contents).
 
 The flaw exploited here is that for every character typed, a leftover string is created in memory. Because of how .NET works, it is nearly impossible to get rid of it once it gets created. For example, when "Password" is typed, it will result in these leftover strings: •a, ••s, •••s, ••••w, •••••o, ••••••r, •••••••d. The POC application searches the dump for these patterns and offers a likely password character for each position in the password. 
 
-Reliability of this attack can be influenced depending on how the password was typed and how many passwords were typed per session. However, I've discovered that even if there are multiple passwords per session or typos, the way .NET CLR allocates these strings means that they are likely to be nicely ordered in memory. So if three different passwords were typed, you are likely to get three candidates for each character position in that order, which makes it easy possible to recover all three passwords. 
+Reliability of this attack can be influenced depending on how the password was typed and how many passwords were typed per session. However, I've discovered that even if there are multiple passwords per session or typos, the way .NET CLR allocates these strings means that they are likely to be nicely ordered in memory. So if three different passwords were typed, you are likely to get three candidates for each character position in that order, which makes it possible to recover all three passwords. 
 
 ## Dev
 
