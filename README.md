@@ -1,4 +1,22 @@
-# KeePass 2.X Master Password Dumper
+# KeePass 2.X Master Password Dumper ([CVE-2023-32784](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-32784))
+
+## Update
+
+The vulnerability was assigned [CVE-2023-32784](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-32784). It should be fixed in KeePass 2.54, which [should come out in ~July 2023](https://sourceforge.net/p/keepass/discussion/329220/thread/f3438e6283/#37b9). Thanks again to Dominik Reichl for his fast response and creative fix!
+
+### What can you do
+First, **update to KeePass 2.54 or higher** once available. Second, if you've been using KeePass for a long time, your master password (and potentially other passwords) is likely in your pagefile/swapfile and hibernation file. Depending on your paranoia level, you can consider these steps to resolve the issue:
+
+- Change your master password
+- Delete hibernation file
+- Delete pagefile/swapfile (can be quite annoying)
+- Overwrite deleted data on the HDD to prevent carving (e.g. [Cipher](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cipher) with `/w` on Windows)
+- Restart your computer
+
+Or just overwrite your HDD and do a fresh install of your OS.
+
+----
+----
 
 KeePass Master Password Dumper is a simple proof-of-concept tool used to dump the master password from KeePass's memory. Apart from the first password character, it is mostly able to recover the password in plaintext. No code execution on the target system is required, just a memory dump. It doesn't matter where the memory comes from - can be the **process dump, swap file (`pagefile.sys`), hibernation file (`hiberfil.sys`) or RAM dump** of the entire system. **It doesn't matter whether or not the workspace is locked**. It is also possible to dump the password from RAM after KeePass is no longer running, although the chance of that working goes down with the time it's been since then.
 
