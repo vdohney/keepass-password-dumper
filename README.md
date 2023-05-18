@@ -2,7 +2,7 @@
 
 ## Update
 
-The vulnerability was assigned [CVE-2023-32784](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-32784). It should be fixed in KeePass 2.54, which [should come out in ~July 2023](https://sourceforge.net/p/keepass/discussion/329220/thread/f3438e6283/#37b9). Thanks again to Dominik Reichl for his fast response and creative fix!
+The vulnerability was assigned [CVE-2023-32784](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-32784). It should be fixed in KeePass 2.54, which [should come out in the beginning of June 2023](https://sourceforge.net/p/keepass/discussion/329220/thread/f3438e6283/#8a4a). Thanks again to Dominik Reichl for his fast response and creative fix!
 
 Clarification: **the password has to be typed on a keyboard, not copied from a clipboard** (see the How it works sections).
 
