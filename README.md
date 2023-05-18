@@ -4,6 +4,8 @@
 
 The vulnerability was assigned [CVE-2023-32784](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-32784). It should be fixed in KeePass 2.54, which [should come out in ~July 2023](https://sourceforge.net/p/keepass/discussion/329220/thread/f3438e6283/#37b9). Thanks again to Dominik Reichl for his fast response and creative fix!
 
+Clarification: **the password has to be typed on a keyboard, not copied from a clipboard** (see the How it works sections).
+
 ### What can you do
 First, **update to KeePass 2.54 or higher** once available. Second, if you've been using KeePass for a long time, your master password (and potentially other passwords) is likely in your pagefile/swapfile and hibernation file. Depending on your paranoia level, you can consider these steps to resolve the issue:
 
