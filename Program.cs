@@ -11,6 +11,8 @@ class Program
 {
     // What characters are valid password characters
     const string allowedChars = "^[\x20-\x7E]+$";
+    // Read file in N-sized chunks
+    const int bufferSize = 524288; //2^19
 
     static void Main(string[] args)
     {
@@ -25,69 +27,87 @@ class Program
         {
             Console.WriteLine("File not found.");
             return;
-        }        
+        }
 
-        // Should be a FileStream or memory mapped file instead to process large files,
-        // but with 64GB RAM I couldn't be bothered
-        byte[] memoryDump = File.ReadAllBytes(filePath);
         Dictionary<int, HashSet<string>> candidates = new Dictionary<int, HashSet<string>>();
-        
+
         int currentStrLen = 0;
         string debugStr = "";
-        for (int i = 0; i < memoryDump.Length - 1; i++)
-        {            
-            // ● = 0xCF 0x25
-            if (memoryDump[i] == 0xCF && memoryDump[i + 1] == 0x25)
+
+        using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+        {
+            byte[] buffer = new byte[bufferSize];
+            int bytesRead;
+
+            while ((bytesRead = fs.Read(buffer, 0, buffer.Length)) > 0)
             {
-                currentStrLen++;
-                i++;
-                debugStr += '●';
-            }
-            else
-            {
-                if (currentStrLen != 0)
+                for (int i = 0; i < bytesRead - 1; i++)
                 {
-                    currentStrLen++;                    
-
-                    string strChar = "";
-                    try{
-                        byte[] character = new byte[] {memoryDump[i], memoryDump[i + 1]};
-                        strChar = System.Text.Encoding.Unicode.GetString(character);
+                    // ● = 0xCF 0x25
+                    if (buffer[i] == 0xCF && buffer[i + 1] == 0x25)
+                    {
+                        currentStrLen++;
+                        i++;
+                        debugStr += '●';
                     }
-                    catch { continue; }
-
-                    bool isValid = Regex.IsMatch(strChar, allowedChars);
-
-                    if (isValid)
-                    {                
-                        // Convert to UTF 8                            
-                        if (!candidates.ContainsKey(currentStrLen))
-                            candidates.Add(currentStrLen, new HashSet<string>() {strChar});
-                        else
+                    else
+                    {
+                        if (currentStrLen != 0)
                         {
-                            if (!candidates[currentStrLen].Contains(strChar))
-                                candidates[currentStrLen].Add(strChar);
+                            currentStrLen++;
+
+                            string strChar = "";
+                            try
+                            {
+                                byte[] character = new byte[] { buffer[i], buffer[i + 1] };
+                                strChar = System.Text.Encoding.Unicode.GetString(character);
+                            }
+                            catch { continue; }
+
+                            bool isValid = Regex.IsMatch(strChar, allowedChars);
+
+                            if (isValid)
+                            {
+                                // Convert to UTF 8                            
+                                if (!candidates.ContainsKey(currentStrLen))
+                                    candidates.Add(currentStrLen, new HashSet<string>() { strChar });
+                                else
+                                {
+                                    if (!candidates[currentStrLen].Contains(strChar))
+                                        candidates[currentStrLen].Add(strChar);
+                                }
+
+                                debugStr += strChar;
+                                Console.WriteLine("Found: " + debugStr);
+                            }
+
+                            currentStrLen = 0;
+                            debugStr = "";
                         }
-
-                        debugStr += strChar;
-                        Console.WriteLine("Found: " + debugStr);
                     }
-
-                    currentStrLen = 0;
-                    debugStr = "";
                 }
             }
-        }        
+        }
 
         // Print summary
         Console.WriteLine("\nPassword candidates (character positions):");
         Console.WriteLine("1.:\tUnknown");
-        string combined = "{UNKNOWN}";
-        foreach (KeyValuePair<int, HashSet<string>> kvp in candidates.OrderBy(x => x.Key)) {
+        string combined = "{Unknown}";
+        int count = 2;
+        foreach (KeyValuePair<int, HashSet<string>> kvp in candidates.OrderBy(x => x.Key))
+        {
+            while (kvp.Key > count)
+            {
+                Console.WriteLine($"{count}.:\tUnknown");
+                combined += "{Unknown}";
+                count++;
+            }            
+
             Console.Write($"{kvp.Key}.:\t");
             if (kvp.Value.Count != 1)
                 combined += "{";
-            foreach (string c in kvp.Value) {
+            foreach (string c in kvp.Value)
+            {
                 Console.Write($"{c}, ");
 
                 combined += c;
@@ -95,10 +115,11 @@ class Program
                     combined += ", ";
             }
             if (kvp.Value.Count != 1)
-                combined = combined.Substring(0, combined.Length-2) + "}";
+                combined = combined.Substring(0, combined.Length - 2) + "}";
 
             Console.WriteLine();
+            count++;
         }
-        Console.WriteLine("Combined: " + combined);
+        Console.WriteLine("Unknown: " + combined);
     }
 }
