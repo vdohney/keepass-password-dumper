@@ -15,10 +15,11 @@ First, **update to KeePass 2.54 or higher** once available. Second, if you've be
 
 Or just overwrite your HDD and do a fresh install of your OS.
 
-Incomplete list of products **that are not impacted** (please create a pull request or an issue for adding more). Rule of thumb is that if it isn't the original KeePass app written in .NET, it's likely not affected.
+Incomplete list of products **that are not impacted** (please create a pull request or an issue for adding more). Rule of thumb is that if it isn't the original KeePass 2.X app written in .NET, it's likely not affected.
 
 - [KeePassXC](https://github.com/keepassxreboot/keepassxc/discussions/9433)
 - [Strongbox](https://www.reddit.com/r/strongbox/comments/13jg2pz/keepass_2x_master_password_dumper_cve202332784/)
+- [KeePass 1.X](https://sourceforge.net/p/keepass/discussion/329220/thread/f3438e6283/#08e1/2240)
 
 ----
 ----
