@@ -6,6 +6,7 @@
 // dotnet run <path_to_dump>
 
 using System.Text.RegularExpressions;
+using System.Runtime.InteropServices;
 
 class Program
 {
@@ -13,9 +14,16 @@ class Program
     const string allowedChars = "^[\x20-\x7E]+$";
     // Read file in N-sized chunks
     const int bufferSize = 524288; //2^19
+    static string passwordChar = "●";
 
     static void Main(string[] args)
     {
+        // Windows terminal has issues displaying "●"
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            passwordChar = "*";
+        }
+
         if (args.Length != 1)
         {
             Console.WriteLine("Please specify a file path as an argument.");
@@ -48,7 +56,7 @@ class Program
                     {
                         currentStrLen++;
                         i++;
-                        debugStr += '●';
+                        debugStr += passwordChar;
                     }
                     else
                     {
@@ -91,15 +99,17 @@ class Program
 
         // Print summary
         Console.WriteLine("\nPassword candidates (character positions):");
-        Console.WriteLine("1.:\tUnknown");
-        string combined = "{Unknown}";
+        Console.WriteLine($"Unknown characters are displayed as \"{passwordChar}\"");
+
+        Console.WriteLine($"1.:\t{passwordChar}");
+        string combined = passwordChar;
         int count = 2;
         foreach (KeyValuePair<int, HashSet<string>> kvp in candidates.OrderBy(x => x.Key))
         {
             while (kvp.Key > count)
             {
-                Console.WriteLine($"{count}.:\tUnknown");
-                combined += "{Unknown}";
+                Console.WriteLine($"{count}.:\t{passwordChar}");
+                combined += passwordChar;
                 count++;
             }            
 
@@ -120,6 +130,6 @@ class Program
             Console.WriteLine();
             count++;
         }
-        Console.WriteLine("Unknown: " + combined);
+        Console.WriteLine("Combined: " + combined);
     }
 }
