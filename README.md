@@ -15,12 +15,17 @@ First, **update to KeePass 2.54 or higher** once available. Second, if you've be
 
 Or just overwrite your HDD and do a fresh install of your OS.
 
+Incomplete list of products **that are not impacted** (please create a pull request or an issue for adding more). Rule of thumb is that if it isn't the original KeePass app written in .NET, it's likely not affected.
+
+- [KeePassXC](https://github.com/keepassxreboot/keepassxc/discussions/9433)
+- [Strongbox](https://www.reddit.com/r/strongbox/comments/13jg2pz/keepass_2x_master_password_dumper_cve202332784/)
+
 ----
 ----
 
 KeePass Master Password Dumper is a simple proof-of-concept tool used to dump the master password from KeePass's memory. Apart from the first password character, it is mostly able to recover the password in plaintext. No code execution on the target system is required, just a memory dump. It doesn't matter where the memory comes from - can be the **process dump, swap file (`pagefile.sys`), hibernation file (`hiberfil.sys`) or RAM dump** of the entire system. **It doesn't matter whether or not the workspace is locked**. It is also possible to dump the password from RAM after KeePass is no longer running, although the chance of that working goes down with the time it's been since then.
 
-Tested with `KeePass 2.53.1` on Windows. Should work for Linux and macOS versions as well. Finding was confirmed by Dominik Reichl, KeePass's author, [here](https://sourceforge.net/p/keepass/discussion/329220/thread/f3438e6283/). I appreciate Dominik's fast response. Hopefully it will be fixed soon!
+Tested with `KeePass 2.53.1` on Windows (English). PoC might have issues with different encodings (languages), but that's not confirmed as of now (see [issue #3](https://github.com/vdohney/keepass-password-dumper/issues/3)). Should work for Linux and macOS versions as well. Finding was confirmed by Dominik Reichl, KeePass's author, [here](https://sourceforge.net/p/keepass/discussion/329220/thread/f3438e6283/). I appreciate Dominik's fast response. Hopefully it will be fixed soon!
 
 ## Setup
 1. [Install .NET](https://dotnet.microsoft.com/en-us/download) (most major operating systems supported).
@@ -48,6 +53,9 @@ Reliability of this attack can be influenced depending on how the password was t
 
 ## Dev
 
-It's a quick POC, so likely not very reliable and robust. Please create a pull request if you happen to find an issue and fix it. It would also be cool to port this to a language like Python. 
+It's a quick POC, so likely not very reliable and robust. Please create a pull request if you happen to find an issue and fix it.
 
 Allowed password characters are currently hardcoded like this: `^[\x20-\x7E]+$` (all printable ASCII characters and space)
+
+## Related Projects
+- [Python implementation of the PoC](https://github.com/CMEPW/keepass-dump-masterkey) by [CMEPW](https://github.com/CMEPW) (haven't checked if it works)
