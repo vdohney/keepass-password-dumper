@@ -31,7 +31,9 @@ Incomplete list of products **that are not impacted** (please create a pull requ
 
 KeePass Master Password Dumper is a simple proof-of-concept tool used to dump the master password from KeePass's memory. Apart from the first password character, it is mostly able to recover the password in plaintext. No code execution on the target system is required, just a memory dump. It doesn't matter where the memory comes from - can be the **process dump, swap file (`pagefile.sys`), hibernation file (`hiberfil.sys`), various crash dumps or RAM dump** of the entire system. **It doesn't matter whether or not the workspace is locked**. It is also possible to dump the password from RAM after KeePass is no longer running, although the chance of that working goes down with the time it's been since then.
 
-Tested with `KeePass 2.53.1` on Windows (English) and `KeePass 2.47` on Debian (keepass2 package). PoC might have issues with different encodings (languages), but that's not confirmed as of now (see [issue #3](https://github.com/vdohney/keepass-password-dumper/issues/3)). Should work for the macOS version as well. Finding was confirmed by Dominik Reichl, KeePass's author, [here](https://sourceforge.net/p/keepass/discussion/329220/thread/f3438e6283/). I appreciate Dominik's fast response. Hopefully it will be fixed soon!
+Tested with `KeePass 2.53.1` on Windows (English) and `KeePass 2.47` on Debian (keepass2 package). PoC might have issues with different encodings (languages), but that's not confirmed as of now (see [issue #3](https://github.com/vdohney/keepass-password-dumper/issues/3)). Should work for the macOS version as well. Unfortunately, enabling the `Enter master key on secure desktop` option doesn't help in preventing the attack. 
+
+Finding was confirmed by Dominik Reichl, KeePass's author, [here](https://sourceforge.net/p/keepass/discussion/329220/thread/f3438e6283/). I appreciate Dominik's fast response. Hopefully it will be fixed soon!
 
 ## Setup
 1. [Install .NET](https://dotnet.microsoft.com/en-us/download) (most major operating systems supported).
