@@ -72,4 +72,4 @@ Thanks to [ynuwenhof](https://github.com/ynuwenhof) for refactoring the code.
 - [Python implementation of the PoC](https://github.com/CMEPW/keepass-dump-masterkey) by [CMEPW](https://github.com/CMEPW)
 - [Rust implementation of the PoC](https://github.com/ynuwenhof/keedump) by [ynuwenhof](https://github.com/ynuwenhof)
 
-I haven't checked tried of them.
+I haven't checked any of them yet.
