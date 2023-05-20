@@ -59,43 +59,42 @@ internal static class Program
                     }
                     else
                     {
-                        if (currentStrLen != 0)
+                        if (currentStrLen == 0) continue;
+                        
+                        currentStrLen++;
+
+                        string strChar;
+                        try
                         {
-                            currentStrLen++;
-
-                            string strChar;
-                            try
-                            {
-                                var character = new[] { buffer[i], buffer[i + 1] };
-                                strChar = System.Text.Encoding.Unicode.GetString(character);
-                            }
-                            catch
-                            {
-                                continue;
-                            }
-
-                            var isValid = Regex.IsMatch(strChar, AllowedChars);
-
-                            if (isValid)
-                            {
-                                // Convert to UTF 8                            
-                                if (!candidates.ContainsKey(currentStrLen))
-                                {
-                                    candidates.Add(currentStrLen, new HashSet<string> { strChar });
-                                }
-                                else
-                                {
-                                    if (!candidates[currentStrLen].Contains(strChar))
-                                        candidates[currentStrLen].Add(strChar);
-                                }
-
-                                debugStr += strChar;
-                                Console.WriteLine($"Found: {debugStr}");
-                            }
-
-                            currentStrLen = 0;
-                            debugStr = "";
+                            var character = new[] { buffer[i], buffer[i + 1] };
+                            strChar = System.Text.Encoding.Unicode.GetString(character);
                         }
+                        catch
+                        {
+                            continue;
+                        }
+
+                        var isValid = Regex.IsMatch(strChar, AllowedChars);
+
+                        if (isValid)
+                        {
+                            // Convert to UTF 8                            
+                            if (!candidates.ContainsKey(currentStrLen))
+                            {
+                                candidates.Add(currentStrLen, new HashSet<string> { strChar });
+                            }
+                            else
+                            {
+                                if (!candidates[currentStrLen].Contains(strChar))
+                                    candidates[currentStrLen].Add(strChar);
+                            }
+
+                            debugStr += strChar;
+                            Console.WriteLine($"Found: {debugStr}");
+                        }
+
+                        currentStrLen = 0;
+                        debugStr = "";
                     }
                 }
             }
