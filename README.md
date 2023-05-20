@@ -31,7 +31,7 @@ Incomplete list of products **that are not impacted** (please create a pull requ
 
 KeePass Master Password Dumper is a simple proof-of-concept tool used to dump the master password from KeePass's memory. Apart from the first password character, it is mostly able to recover the password in plaintext. No code execution on the target system is required, just a memory dump. It doesn't matter where the memory comes from - can be the **process dump, swap file (`pagefile.sys`), hibernation file (`hiberfil.sys`), various crash dumps or RAM dump** of the entire system. **It doesn't matter whether or not the workspace is locked**. It is also possible to dump the password from RAM after KeePass is no longer running, although the chance of that working goes down with the time it's been since then.
 
-Tested with `KeePass 2.53.1` on Windows (English) and `KeePass 2.47` on Debian (keepass2 package). PoC might have issues with different encodings (languages), but that's not confirmed as of now (see [issue #3](https://github.com/vdohney/keepass-password-dumper/issues/3)). Should work for the macOS version as well. Unfortunately, enabling the `Enter master key on secure desktop` option doesn't help in preventing the attack. 
+Tested with `KeePass 2.53.1` on Windows (English) and `KeePass 2.47` on Debian (keepass2 package). It should work for the macOS version as well. Unfortunately, enabling the `Enter master key on secure desktop` option doesn't help in preventing the attack. PoC might have issues with databases created by older versions of KeePass, but I wasn't able to reproduce it (see [issue #4](https://github.com/vdohney/keepass-password-dumper/issues/4)).
 
 Finding was confirmed by Dominik Reichl, KeePass's author, [here](https://sourceforge.net/p/keepass/discussion/329220/thread/f3438e6283/). I appreciate Dominik's fast response. Hopefully it will be fixed soon!
 
@@ -63,7 +63,13 @@ Reliability of this attack can be influenced depending on how the password was t
 
 It's a quick POC, so likely not very reliable and robust. Please create a pull request if you happen to find an issue and fix it.
 
-Allowed password characters are currently hardcoded like this: `^[\x20-\x7E]+$` (all printable ASCII characters and space)
+Allowed password characters are currently hardcoded like this: `^[\x20-\x7E]+$` (all printable ASCII characters and space).
+
+## Acknowledgements
+Thanks to [ynuwenhof](https://github.com/ynuwenhof) for refactoring the code.
 
 ## Related Projects
-- [Python implementation of the PoC](https://github.com/CMEPW/keepass-dump-masterkey) by [CMEPW](https://github.com/CMEPW) (haven't checked if it works)
+- [Python implementation of the PoC](https://github.com/CMEPW/keepass-dump-masterkey) by [CMEPW](https://github.com/CMEPW)
+- [Rust implementation of the PoC](https://github.com/ynuwenhof/keedump) by [ynuwenhof](https://github.com/ynuwenhof)
+
+I haven't checked tried of them.
