@@ -43,6 +43,8 @@ The easiest way to test this on Windows is to create a process dump in the task 
 
 ![Usage example](assets/anim.gif)
 
+3. Alternatively you can add another parameter `dotnet run PATH_TO_DUMP PATH_TO_PWDLIST` to generate a list of all possible passwords beginning from the second character. 
+
 ## Should You Be Worried?
 
 Depends on your threat model. **If your computer is already infected by malware that's running in the background with the privileges of your user, this finding doesn't make your situation much worse.** However, it might be easier for the malware to be stealthy and evade the antivirus, since unlike KeeTheft or KeeFarce, no process injection or other type of code execution is necessary. 
