@@ -131,5 +131,32 @@ class Program
             count++;
         }
         Console.WriteLine("Combined: " + combined);
+        var pwdList = new List<string>();
+        generatePwdList(candidates, pwdList);
+        pwdList.ForEach(pwd => Console.WriteLine(pwd));
+    }
+
+    static void generatePwdList(Dictionary<int, HashSet<string>> candidates, List<string> pwdList, string pwd = "")
+    {
+        foreach (var kvp in candidates)
+        {
+            if (kvp.Value.Count == 1)
+            {
+                pwd += kvp.Value.First();
+            }
+            else
+            {
+                foreach (var val in kvp.Value)
+                {
+                    generatePwdList(
+                        new Dictionary<int, HashSet<string>>(candidates.Where(x => x.Key >= kvp.Key +1).ToList()), 
+                        pwdList,
+                        pwd + val);
+                }
+                return;
+            }
+        }
+        pwdList.Add(pwd);
     }
 }
+
