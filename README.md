@@ -68,7 +68,7 @@ It's a quick POC, so likely not very reliable and robust. Please create a pull r
 Allowed password characters are currently hardcoded like this: `^[\x20-\x7E]+$` (all printable ASCII characters and space).
 
 ## Acknowledgements
-Thanks to [ynuwenhof](https://github.com/ynuwenhof) for refactoring the code.
+Thanks to [adridlug](https://github.com/adridlug) for adding the possibility to auto-generate the password list, and [ynuwenhof](https://github.com/ynuwenhof) for refactoring the code.
 
 ## Related Projects
 - [Python implementation of the PoC](https://github.com/CMEPW/keepass-dump-masterkey) by [CMEPW](https://github.com/CMEPW)
