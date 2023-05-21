@@ -1,3 +1,5 @@
 bin/**
 obj/**
 .vscode
+*.DMP
+possiblePwds.txt

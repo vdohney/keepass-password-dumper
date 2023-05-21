@@ -137,7 +137,7 @@ class Program
         File.WriteAllLines("possiblePwds.txt", pwdList);
     }
 
-    static void generatePwdList(Dictionary<int, HashSet<string>> candidates, List<string> pwdList, string pwd = "")
+    private static void generatePwdList(Dictionary<int, HashSet<string>> candidates, List<string> pwdList, string pwd = "")
     {
         foreach (var kvp in candidates)
         {
@@ -150,7 +150,7 @@ class Program
             foreach (var val in kvp.Value)
             {
                 generatePwdList(
-                    new Dictionary<int, HashSet<string>>(candidates.Where(x => x.Key >= kvp.Key +1).ToList()), 
+                    candidates.Where(x => x.Key >= kvp.Key +1).ToDictionary(d => d.Key, d => d.Value), 
                     pwdList,
                     pwd + val);
             }
