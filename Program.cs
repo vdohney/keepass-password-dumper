@@ -23,7 +23,7 @@ internal static class Program
         // Windows terminal has issues displaying "●"
         var passwordChar = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "*" : "●";
 
-        if (args.Length != 1)
+        if (args.Length < 1)
         {
             Console.WriteLine("Please specify a file path as an argument.");
             return;
@@ -36,6 +36,7 @@ internal static class Program
             return;
         }
 
+        var pwdListPath = args.Length >= 2 ? args[1] : string.Empty;
         var candidates = new Dictionary<int, HashSet<string>>();
 
         var currentStrLen = 0;
@@ -139,9 +140,12 @@ internal static class Program
       
         Console.WriteLine($"Combined: {combined}");
         
+        if (pwdListPath == string.Empty)
+            return;
+        
         var pwdList = new List<string>();
         generatePwdList(candidates, pwdList);
-        File.WriteAllLines("possiblePwds.txt", pwdList);
+        File.WriteAllLines(pwdListPath, pwdList);
     }
 
     private static void generatePwdList(Dictionary<int, HashSet<string>> candidates, List<string> pwdList, string pwd = "")
