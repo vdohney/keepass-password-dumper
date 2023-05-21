@@ -3,7 +3,10 @@
 // text box, such as the master password.
 
 // usage:
-// dotnet run <path_to_dump>
+// dotnet run PATH_TO_DUMP [PATH_TO_PWDLIST]
+// 
+//
+// where PATH_TO_PWDLIST is an optional argument for generating a list of all possible passwords beginning from the second character.
 
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
