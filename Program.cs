@@ -131,9 +131,10 @@ class Program
             count++;
         }
         Console.WriteLine("Combined: " + combined);
+        
         var pwdList = new List<string>();
         generatePwdList(candidates, pwdList);
-        pwdList.ForEach(pwd => Console.WriteLine(pwd));
+        File.WriteAllLines("possiblePwds.txt", pwdList);
     }
 
     static void generatePwdList(Dictionary<int, HashSet<string>> candidates, List<string> pwdList, string pwd = "")
@@ -143,18 +144,17 @@ class Program
             if (kvp.Value.Count == 1)
             {
                 pwd += kvp.Value.First();
+                continue;
             }
-            else
+            
+            foreach (var val in kvp.Value)
             {
-                foreach (var val in kvp.Value)
-                {
-                    generatePwdList(
-                        new Dictionary<int, HashSet<string>>(candidates.Where(x => x.Key >= kvp.Key +1).ToList()), 
-                        pwdList,
-                        pwd + val);
-                }
-                return;
+                generatePwdList(
+                    new Dictionary<int, HashSet<string>>(candidates.Where(x => x.Key >= kvp.Key +1).ToList()), 
+                    pwdList,
+                    pwd + val);
             }
+            return;
         }
         pwdList.Add(pwd);
     }
