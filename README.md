@@ -37,13 +37,15 @@ Finding was confirmed by Dominik Reichl, KeePass's author, [here](https://source
 
 ## Setup
 1. [Install .NET](https://dotnet.microsoft.com/en-us/download) (most major operating systems supported).
-2. `dotnet run PATH_TO_DUMP`
+2. Clone the repository: `git clone https://github.com/vdohney/keepass-password-dumper` or download it from GitHub
+2. Enter the project directory in your terminal (Powershell on Windows) `cd keepass-password-dumper`
+3. `dotnet run PATH_TO_DUMP`
 
 The easiest way to test this on Windows is to create a process dump in the task manager by right-clicking the KeePass process and selecting "Create dump file".
 
 ![Usage example](assets/anim.gif)
 
-3. Alternatively you can add another parameter `dotnet run PATH_TO_DUMP PATH_TO_PWDLIST` to generate a list of all possible passwords beginning from the second character. 
+4. Alternatively you can add another parameter `dotnet run PATH_TO_DUMP PATH_TO_PWDLIST` to generate a list of all possible passwords beginning from the second character. 
 
 ## Should You Be Worried?
 
