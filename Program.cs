@@ -149,6 +149,8 @@ internal static class Program
         var pwdList = new List<string>();
         generatePwdList(candidates, pwdList, passwordChar);
         File.WriteAllLines(pwdListPath, pwdList);
+
+        Console.WriteLine($"{pwdList.Count} possible passwords saved in {pwdListPath}. Unknown characters indicated as {passwordChar}");
     }
 
     private static void generatePwdList(
