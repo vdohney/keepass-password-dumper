@@ -147,14 +147,29 @@ internal static class Program
             return;
         
         var pwdList = new List<string>();
-        generatePwdList(candidates, pwdList);
+        generatePwdList(candidates, pwdList, passwordChar);
         File.WriteAllLines(pwdListPath, pwdList);
+
+        Console.WriteLine($"{pwdList.Count} possible passwords saved in {pwdListPath}. Unknown characters indicated as {passwordChar}");
     }
 
-    private static void generatePwdList(Dictionary<int, HashSet<string>> candidates, List<string> pwdList, string pwd = "")
+    private static void generatePwdList(
+        Dictionary<int, HashSet<string>> candidates, 
+        List<string> pwdList, 
+        string unkownChar, 
+        string pwd = "",
+        int prevKey = 0)
     {
         foreach (var kvp in candidates)
         {
+            while (kvp.Key != prevKey +1)
+            {
+                pwd += unkownChar;
+                prevKey ++;
+            }
+
+            prevKey = kvp.Key;
+            
             if (kvp.Value.Count == 1)
             {
                 pwd += kvp.Value.First();
@@ -166,7 +181,9 @@ internal static class Program
                 generatePwdList(
                     candidates.Where(x => x.Key >= kvp.Key +1).ToDictionary(d => d.Key, d => d.Value), 
                     pwdList,
-                    pwd + val);
+                    unkownChar,
+                    pwd + val,
+                    prevKey);
             }
             return;
         }
