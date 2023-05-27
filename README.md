@@ -1,4 +1,4 @@
-# KeePass 2.X Master Password Dumper ([CVE-2023-32784](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-32784))
+# KeePass 2.X Master Password Dumper ([CVE-2023-32784](https://nvd.nist.gov/vuln/detail/CVE-2023-32784)
 
 ## Update
 
