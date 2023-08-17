@@ -16,15 +16,15 @@ namespace keepass_password_dumper;
 internal static class Program
 {
     // What characters are valid password characters
-    private const string AllowedChars = "^[\x20-\x7E]+$";
+    private const string AllowedChars = "^[\x20-\xFF]+$";
 
     // Read file in N-sized chunks
     private const int BufferSize = 524288; //2^19
 
     private static void Main(string[] args)
     {
-        // Windows terminal has issues displaying "●"
-        var passwordChar = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "*" : "●";
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+        var passwordChar = "●";
 
         if (args.Length < 1)
         {
